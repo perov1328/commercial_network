@@ -1,4 +1,6 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, ListAPIView
+from net.filters import NetElementFilter
 from net.models import NetElement
 from net.serializers import NetElementListSerializer, NetElementRetriveSerializer, NetElementCreateSerializer
 from net.paginators import NetElementPagination
@@ -14,6 +16,8 @@ class NetElementListAPIView(ListAPIView):
     serializer_class = NetElementListSerializer
     pagination_class = NetElementPagination
     permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = NetElementFilter
 
 
 class NetElementRetriveAPIView(RetrieveAPIView):
